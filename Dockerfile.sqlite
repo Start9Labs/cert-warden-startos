@@ -1,0 +1,5 @@
+# Tools for the Set Admin Password action. Cert Warden ships no CLI and its
+# password-change API needs the password you have lost, so the reset writes the
+# bcrypt hash into its database directly.
+FROM alpine:3.24
+RUN apk add --no-cache sqlite apache2-utils
