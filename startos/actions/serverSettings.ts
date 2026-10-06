@@ -8,7 +8,7 @@ export const inputSpec = InputSpec.of({
   logLevel: Value.select({
     name: i18n('Log Level'),
     description: i18n(
-      'How much detail Cert Warden writes to its log. Raise it to debug when diagnosing a failed certificate order.',
+      'How much detail Cert Warden writes to its log.\n- Debug: everything, including the detail needed to diagnose a failed certificate order. Switch back once you are done.\n- Info: routine activity, plus warnings and errors.\n- Warning: only warnings and errors.\n- Error: only errors.',
     ),
     default: 'info',
     values: {

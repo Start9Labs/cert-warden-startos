@@ -18,7 +18,10 @@ Freshly scaffolded? Work the
 guide page, not a file in this repo — read it, don't copy it in.
 
 Keep `README.md` (technical reference for an AI support or administering agent) and
-`instructions.md` (end-user docs) in sync with your changes.
+`instructions.md` (end-user docs) in sync with your changes. This file restates neither:
+whoever changes the package has both, so it carries only what they don't — repo mechanics,
+a change that looks right and is not, where the next thing gets added, a naming trap, a
+build or test invocation particular to this repo.
 
 **Fix a defect you spot rather than reporting it** — you have the package open and the
 context to be sure. File **a GitHub issue on this repo** only when the call isn't yours to
@@ -31,14 +34,9 @@ verified, tried, and decided belongs in the commit message and the PR body.
 
 ## This repo
 
-- **The password reset writes bcrypt into `appdata.db` rather than calling the
-  app.** Cert Warden's `changepassword` API requires the password you are
-  replacing, which is useless for a reset, and it ships no CLI. `htpasswd -bnBC 12`
-  emits a `$2y$` hash and Cert Warden's Go bcrypt accepts it; store it as a BLOB,
-  as the app does. Don't "fix" this back to the API.
-- **Upstream's `config.example.yaml` claims API-key downloads are disabled when
-  the server runs over plain HTTP. They are not** — the download routes are
-  registered unconditionally, and `IsHttps()` only sets the session cookie's
-  `Secure` flag and reloads the HTTPS certificate. The container serves HTTP
-  behind the StartOS proxy and the download API works; don't add TLS inside the
-  container to satisfy that comment.
+- **Don't move the password reset onto Cert Warden's API.** Its `changepassword`
+  endpoint needs the password being replaced, so a reset has to write the bcrypt
+  hash into `appdata.db` itself, as a BLOB the way the app stores it.
+- **Don't add TLS inside the container to enable API-key downloads.** Upstream's
+  `config.example.yaml` says they are off over plain HTTP, but the download routes
+  are registered unconditionally.

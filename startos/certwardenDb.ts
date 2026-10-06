@@ -56,7 +56,7 @@ async function ensureDatabase(effects: T.Effects): Promise<void> {
       await writeFile(`${sub.rootfs}${bootScriptPath}`, bootScript, {
         mode: 0o755,
       })
-      return sub.exec(['/bin/sh', bootScriptPath], {}, bootTimeoutMs)
+      return sub.exec(['/bin/sh', bootScriptPath], { timeout: bootTimeoutMs })
     },
   )
   if (!String(stdout).includes('OK')) throw new Error('ERR_DB_INIT')
