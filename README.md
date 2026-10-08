@@ -52,7 +52,7 @@ without `runAsInit`. The application's working directory is `/app`, and it
 resolves its data directory relative to that — a container started with a
 different working directory writes its database somewhere else.
 
-Two subcontainers exist:
+Four subcontainers exist:
 
 | Subcontainer                | Image         | Purpose                                                                    |
 | --------------------------- | ------------- | -------------------------------------------------------------------------- |
@@ -176,6 +176,9 @@ other, and a forgotten one is recovered by running this.
   yet, it first runs the application once to create it, which brings it to a few
   seconds.
 - **Repeat safety:** safe to repeat. Each run replaces the previous password.
+- **Confirmation:** once `store.json` holds a password, the action warns that the
+  current password stops working and asks for confirmation before running. On a
+  fresh install it runs without one.
 - **What happens next:** on a fresh install this clears the critical task and the
   service becomes startable.
 - **Outputs:** the username and the new password. The password is not recoverable

@@ -70,9 +70,10 @@ documentation link above.
 
 - **Set Admin Password** — replaces your password with a newly generated one and
   shows it once. Run it whenever you want a new password, and run it if you have
-  forgotten the one you had — it never asks for your old password. The service
-  needs to be stopped for it, so stop it first, run the action, then start it
-  again.
+  forgotten the one you had — it never asks for your old password. Once a
+  password is set, it asks you to confirm first, because your current password
+  stops working. The service needs to be stopped for it, so stop it first, run
+  the action, then start it again.
 - **Server Settings** — changes how much detail Cert Warden writes to its log.
   Raise it to debug when a certificate order will not complete, then read the log
   on the Dashboard tab. Changes take effect the next time the service starts.

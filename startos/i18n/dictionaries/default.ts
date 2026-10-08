@@ -24,11 +24,12 @@ const dict = {
   'Save this password now \u2014 it is not shown again. Run this action to replace it.': 16,
   Username: 17,
   Password: 18,
+  'Replaces the admin password. The current password stops working, and the new one is shown only once.': 27,
   // actions/serverSettings.ts
   'Server Settings': 19,
   'Everything else \u2014 ACME providers, accounts, keys and certificates \u2014 is configured in the Cert Warden web interface.': 20,
   'Log Level': 21,
-  'How much detail Cert Warden writes to its log. Raise it to debug when diagnosing a failed certificate order.': 22,
+  'How much detail Cert Warden writes to its log.\n- Debug: everything, including the detail needed to diagnose a failed certificate order. Switch back once you are done.\n- Info: routine activity, plus warnings and errors.\n- Warning: only warnings and errors.\n- Error: only errors.': 22,
   Debug: 23,
   Info: 24,
   Warning: 25,

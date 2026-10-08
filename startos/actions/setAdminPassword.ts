@@ -7,16 +7,20 @@ import { adminUsername, getPassword } from '../utils'
 export const setAdminPassword = sdk.Action.withoutInput(
   'set-admin-password',
 
-  {
+  async ({ effects }) => ({
     name: i18n('Set Admin Password'),
     description: i18n(
       'Generate a new password for the Cert Warden admin account. Use this to take ownership of a new install, to rotate, or to get back in if you have lost the password. The password is shown once, here.',
     ),
-    warning: null,
+    warning: (await storeJson.read((s) => s.adminPassword).const(effects))
+      ? i18n(
+          'Replaces the admin password. The current password stops working, and the new one is shown only once.',
+        )
+      : null,
     allowedStatuses: 'only-stopped',
     group: null,
     visibility: 'enabled',
-  },
+  }),
 
   async ({ effects }) => {
     const password = getPassword()
