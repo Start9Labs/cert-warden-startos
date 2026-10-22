@@ -35,13 +35,14 @@ Upstream: [gregtwallace/certwarden](https://github.com/gregtwallace/certwarden).
 
 ## Image and Container Runtime
 
-The service runs upstream's own image unmodified, using the image's built-in
-entrypoint. A second, tiny image carries the tools the password reset needs,
+The service runs upstream's image with its CA store upgraded by the root
+`Dockerfile`, a temporary layer that comes out once upstream ships an image
+built on a fixed store. The image's built-in entrypoint is unchanged. A second, tiny image carries the tools the password reset needs,
 which upstream's image does not ship.
 
 | Image         | Source                                                  | Purpose                          |
 | ------------- | ------------------------------------------------------- | -------------------------------- |
-| `cert-warden` | `ghcr.io/gregtwallace/certwarden`, unmodified           | The service.                     |
+| `cert-warden` | `ghcr.io/gregtwallace/certwarden` + root `Dockerfile`   | The service.                     |
 | `sqlite`      | Built from `Dockerfile.sqlite` (Alpine + `sqlite`, `apache2-utils`) | Resetting the admin password. |
 
 Both are built for `x86_64` and `aarch64`. The service daemon runs the image's
@@ -277,7 +278,7 @@ again, and running it recovers access under a new password.
 ```yaml
 package_id: 'cert-warden'
 images:
-  cert-warden: ghcr.io/gregtwallace/certwarden
+  cert-warden: ghcr.io/gregtwallace/certwarden + root Dockerfile (CA store upgrade)
   sqlite: built from Dockerfile.sqlite
 architectures: [x86_64, aarch64]
 subcontainers:
