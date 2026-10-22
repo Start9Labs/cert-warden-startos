@@ -13,7 +13,11 @@ export const manifest = setupManifest({
   volumes: ['main', 'startos'],
   images: {
     'cert-warden': {
-      source: { dockerTag: 'ghcr.io/gregtwallace/certwarden:v0.29.7' },
+      source: {
+        dockerBuild: {
+          buildArgs: { IMAGE: 'ghcr.io/gregtwallace/certwarden:v0.29.7' },
+        },
+      },
       arch: ['x86_64', 'aarch64'],
     },
     sqlite: {
